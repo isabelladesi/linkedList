@@ -131,6 +131,36 @@ public:
 // (your choice). Do not change the public interface of List, although you
 // may add the Big Three if needed.  Do add the public member functions for
 // Iterator.
+List<int>::List() : first(nullptr) {}
+bool List<int>::empty() const {
+  return first == nullptr;     // or just return !first;
+}
+
+int & List<int>::front() {
+  assert(!empty());
+  return first->datum;
+}
+
+void List<int>::push_front(int datum) {
+  first = new Node{datum, first };
+}
+
+void List<int>::pop_front() {
+  assert(!empty());
+  Node *new_first = first->next;  // temporary keeps track of new first
+  delete first;
+  first = new_first;
+}
+
+void List<int>::push_back(int datum) {
+  Node *new_node = new Node{ datum, nullptr };
+  if (empty()) {
+    first = last = new_node;
+  } else {
+    last = last->next = new_node;
+  }
+}
+
 
 
 #endif // Do not remove this. Write all your code above this line.
