@@ -139,7 +139,8 @@ bool List<T>::empty() const {
 
 template <typename T>
 int List<T>::size() const {
-  const int SIZE = last - first;
+  const int size = last - first;
+  return size;
 }
 
 template <typename T>
@@ -180,8 +181,8 @@ void List<T>::pop_front() {
 template <typename T>
 void List<T>::pop_back() {
   assert(!empty());
-  int size = list.size();
-  Node *new_last = last->size-2;  // temporary keeps track of new first
+  // int size = size();
+  Node *new_last = last->size()-2;  // temporary keeps track of new first
   delete last;
   last = new_last;
 }
@@ -189,9 +190,8 @@ void List<T>::pop_back() {
 template <typename T>
 void List<T>::clear() {
   assert(!empty());
-  int size = list.size();
-  for (int i = 0; i < size; ++i) {
-    list.pop_front();
+  for (int i = 0; i < size(); ++i) {
+    pop_front();
   }
 }
 
