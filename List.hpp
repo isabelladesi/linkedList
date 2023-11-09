@@ -94,10 +94,10 @@ public:
   public:
     // This operator will be used to test your code. Do not modify it.
     // Requires that the current element is dereferenceable.
-    T & operator*() const;
-    Iterator & operator++();
-    bool operator==(Iterator rhs) const;
-    bool operator!=(Iterator rhs) const;
+    // T & operator*() const;
+    // Iterator & operator++();
+    // bool operator==(Iterator rhs) const;
+    // bool operator!=(Iterator rhs) const;
 
     Iterator& operator--() {
       assert(node_ptr);
@@ -105,26 +105,22 @@ public:
       return *this;
     }
 
-    template <typename T>
-    T & List<T>::Iterator::operator*() const {
+   T& operator*() const {
       assert(node_ptr);
       return node_ptr->datum;
     }
 
-    template <typename T>
-    typename List<T>::Iterator & List<T>::Iterator::operator++() const {
+    Iterator& operator++() {
       assert(node_ptr);
       node_ptr = node_ptr->next;
       return *this;
     }
 
-    template <typename T>
-    bool List<T>::Iterator::operator==(Iterator rhs) const {
+    bool operator==(Iterator rhs) const {
       return node_ptr == rhs.node_ptr;
     }
 
-    template <typename T>
-    bool List<T>::Iterator::operator!=(Iterator rhs) const {
+    bool operator!=(Iterator rhs) const {
       return node_ptr != rhs.node_ptr;
     }
 
@@ -140,8 +136,8 @@ public:
     // construct an Iterator at a specific position
     Iterator(Node *p);
 
-    Iterator(Node *p)
-      : node_ptr(p) { Node *node_ptr;}
+    // Iterator(Node *p)
+    //   : node_ptr(p) { Node *node_ptr;}
       
 
   };//List::Iterator
