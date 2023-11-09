@@ -100,7 +100,7 @@ public:
     // add any additional necessary member variables here
 
     // add any friend declarations here
-
+    friend class List;
     // construct an Iterator at a specific position
     Iterator(Node *p);
 
@@ -185,7 +185,7 @@ template <typename T>
 void List<T>::pop_back() {
   assert(!empty());
   // int size = size();
-  Node *new_last = last->size()-2;  // temporary keeps track of new first
+  Node *new_last = last->prev;  // temporary keeps track of new first
   delete last;
   last = new_last;
   --sizeOf;
