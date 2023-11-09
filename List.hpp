@@ -58,6 +58,7 @@ public:
   // of the class must be able to create, copy, assign, and destroy Lists
 
 private:
+  int sizeOf;
   //a private type
   struct Node {
     Node *next;
@@ -139,8 +140,7 @@ bool List<T>::empty() const {
 
 template <typename T>
 int List<T>::size() const {
-  const int size = last - first;
-  return size;
+  return sizeOf;
 }
 
 template <typename T>
@@ -158,6 +158,7 @@ T &  List<T>::back() {
 template <typename T>
 void List<T>::push_front(const T &datum) {
   first = new Node{datum, first };
+  ++sizeOf;
 }
 
 template <typename T>
@@ -168,6 +169,7 @@ void List<T>::push_back(const T &datum) {
   } else {
     last = last->next = new_node;
   }
+  ++sizeOf;
 }
 
 template <typename T>
@@ -176,6 +178,7 @@ void List<T>::pop_front() {
   Node *new_first = first->next;  // temporary keeps track of new first
   delete first;
   first = new_first;
+  --sizeOf;
 }
 
 template <typename T>
@@ -185,6 +188,7 @@ void List<T>::pop_back() {
   Node *new_last = last->size()-2;  // temporary keeps track of new first
   delete last;
   last = new_last;
+  --sizeOf;
 }
 
 template <typename T>
@@ -193,6 +197,13 @@ void List<T>::clear() {
   for (int i = 0; i < size(); ++i) {
     pop_front();
   }
+  sizeOf = 0;
 }
+
+template <typename T>
+List<T>::Iterator List<T>::end() {
+  Iterator iterator(nullptr);
+  return iterator;
+  }
 
 #endif // Do not remove this. Write all your code above this line.
