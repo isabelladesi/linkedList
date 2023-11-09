@@ -131,33 +131,67 @@ public:
 // (your choice). Do not change the public interface of List, although you
 // may add the Big Three if needed.  Do add the public member functions for
 // Iterator.
-List<int>::List() : first(nullptr) {}
-bool List<int>::empty() const {
-  return first == nullptr;     // or just return !first;
+
+template <typename T>
+bool List<T>::empty() const {
+  return first == nullptr; //return size == 0; or just return !first;
 }
 
-int & List<int>::front() {
+template <typename T>
+int List<T>::size() const {
+  const int SIZE = last - first;
+}
+
+template <typename T>
+T &  List<T>::front() {
   assert(!empty());
   return first->datum;
 }
 
-void List<int>::push_front(int datum) {
+template <typename T>
+T &  List<T>::back() {
+  assert(!empty());
+  return last->datum;
+}
+
+template <typename T>
+void List<T>::push_front(const T &datum) {
   first = new Node{datum, first };
 }
 
-void List<int>::pop_front() {
+template <typename T>
+void List<T>::push_back(const T &datum) {
+  Node *new_node = new Node{ datum, nullptr };
+  if (empty()) {
+    first = last = new_node;
+  } else {
+    last = last->next = new_node;
+  }
+}
+
+template <typename T>
+void List<T>::pop_front() {
   assert(!empty());
   Node *new_first = first->next;  // temporary keeps track of new first
   delete first;
   first = new_first;
 }
 
-void List<int>::push_back(int datum) {
-  Node *new_node = new Node{ datum, nullptr };
-  if (empty()) {
-    first = last = new_node;
-  } else {
-    last = last->next = new_node;
+template <typename T>
+void List<T>::pop_back() {
+  assert(!empty());
+  int size = list.size();
+  Node *new_last = last->size-2;  // temporary keeps track of new first
+  delete last;
+  last = new_last;
+}
+
+template <typename T>
+void List<T>::clear() {
+  assert(!empty());
+  int size = list.size();
+  for (int i = 0; i < size; ++i) {
+    list.pop_front();
   }
 }
 
