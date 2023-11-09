@@ -195,6 +195,4 @@ void List<T>::clear() {
   }
 }
 
-
-
 #endif // Do not remove this. Write all your code above this line.
