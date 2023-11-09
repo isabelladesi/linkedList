@@ -82,6 +82,11 @@ public:
     // and overloaded assignment operator, if appropriate. If these operations
     // will work correctly without defining these, you can omit them. A user
     // of the class must be able to create, copy, assign, and destroy Iterators.
+    //Iterator(); //default constructor
+    Iterator()
+      : node_ptr(nullptr) { }
+    
+
 
     // Your iterator should implement the following public operators: *,
     // ++ (prefix), default constructor, == and !=.
@@ -89,11 +94,42 @@ public:
   public:
     // This operator will be used to test your code. Do not modify it.
     // Requires that the current element is dereferenceable.
+    T & operator*() const;
+    Iterator & operator++();
+    bool operator==(Iterator rhs) const;
+    bool operator!=(Iterator rhs) const;
+
     Iterator& operator--() {
       assert(node_ptr);
       node_ptr = node_ptr->prev;
       return *this;
     }
+
+    template <typename T>
+    T & List<T>::Iterator::operator*() const {
+      assert(node_ptr);
+      return node_ptr->datum;
+    }
+
+    template <typename T>
+    typename List<T>::Iterator & List<T>::Iterator::operator++() const {
+      assert(node_ptr);
+      node_ptr = node_ptr->next;
+      return *this;
+    }
+
+    template <typename T>
+    bool List<T>::Iterator::operator==(Iterator rhs) const {
+      return node_ptr == rhs.node_ptr;
+    }
+
+    template <typename T>
+    bool List<T>::Iterator::operator!=(Iterator rhs) const {
+      return node_ptr != rhs.node_ptr;
+    }
+
+    
+
 
   private:
     Node *node_ptr; //current Iterator position is a List node
@@ -103,6 +139,10 @@ public:
     friend class List;
     // construct an Iterator at a specific position
     Iterator(Node *p);
+
+    Iterator(Node *p)
+      : node_ptr(p) { Node *node_ptr;}
+      
 
   };//List::Iterator
   ////////////////////////////////////////
