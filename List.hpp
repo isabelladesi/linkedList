@@ -157,13 +157,13 @@ T &  List<T>::back() {
 
 template <typename T>
 void List<T>::push_front(const T &datum) {
-  first = new Node{datum, first };
+  first = new Node{first, nullptr, datum};
   ++sizeOf;
 }
 
 template <typename T>
 void List<T>::push_back(const T &datum) {
-  Node *new_node = new Node{ datum, nullptr };
+  Node *new_node = new Node{nullptr, last, datum};
   if (empty()) {
     first = last = new_node;
   } else {
@@ -201,9 +201,27 @@ void List<T>::clear() {
 }
 
 template <typename T>
-List<T>::Iterator List<T>::end() {
+void List<T>::copy_all(const List<T> &other) {
+  assert(empty());
+  for (Iterator i = other.begin(); i < other.end(); ++i) {
+    push_back(*i);
+  }
+}
+
+template <typename T>
+typename List<T>::Iterator List<T>::end() const{
   Iterator iterator(nullptr);
   return iterator;
-  }
+}
+
+template <typename T>
+void List<T>::erase(Iterator i){
+  Iterator iterator(nullptr);
+}
+
+template <typename T>
+void List<T>::insert(Iterator i, const T &datum){
+  Iterator iterator(nullptr);
+}
 
 #endif // Do not remove this. Write all your code above this line.
