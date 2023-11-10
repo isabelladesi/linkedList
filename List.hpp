@@ -13,6 +13,11 @@
 
 template <typename T>
 class List {
+  //List() : sizeOf(0), first(nullptr), last(nullptr) {}  // default constructor? 
+  // ~List() {      // destructor
+  //       clear();
+  //   }
+  //List();     //default constgructor?
   //OVERVIEW: a doubly-linked, double-ended list with Iterator interface
 public:
 
@@ -257,11 +262,11 @@ void List<T>::erase(Iterator i){
  while (prev != end() && ++prev != i) {
     ++prev;
   }
-//   if (prev != end()) {
-//     //Node* temp = // current node
-//     //current node = i current node
-//    // delete temp;
-// }
+  if (prev != end()) {
+    //Node* temp = // current node
+    node_ptr = node_ptr(i);// current node
+   // delete temp;
+}
 }
 
 template <typename T>
