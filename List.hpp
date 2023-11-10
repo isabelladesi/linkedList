@@ -246,13 +246,17 @@ void List<T>::copy_all(const List<T> &other) {
 
 template <typename T>
 typename List<T>::Iterator List<T>::end() const{
-  Iterator iterator(nullptr);
+  Iterator iterator(nullptr); //last?
   return iterator;
 }
 
 template <typename T>
 void List<T>::erase(Iterator i){
   Iterator iterator(nullptr);
+  Iterator prev = begin();
+ while (prev != end() && ++prev != i) {
+    ++prev;
+  }
 }
 
 template <typename T>
