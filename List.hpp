@@ -257,6 +257,11 @@ void List<T>::erase(Iterator i){
  while (prev != end() && ++prev != i) {
     ++prev;
   }
+  if (prev != end()) {
+    Node* temp = // current node
+    //current node = i current node
+    delete temp;
+}
 }
 
 template <typename T>
