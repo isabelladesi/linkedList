@@ -134,10 +134,10 @@ public:
     // add any friend declarations here
     friend class List;
     // construct an Iterator at a specific position
-    Iterator(Node *p);
+    // Iterator(Node *p);
 
-    // Iterator(Node *p)
-    //   : node_ptr(p) { Node *node_ptr;}
+    Iterator(Node *p)
+      : node_ptr(p){}
       
 
   };//List::Iterator
