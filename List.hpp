@@ -13,23 +13,6 @@
 
 template <typename T>
 class List {
-  // List() : first(nullptr), last(nullptr), ListNum(0) {}  // default constructor 
-  // ~List() {      // destructor
-  //   clear();
-  // }
-  // List (const List<T> &other) : List(){ //copy constructor
-  //   copy_all(other);
-  // }
-  List &operator==(const List<T> &rhs){ //overload assignment operator
-    if(this == &rhs){
-      return *this;
-    }
-    else{
-      clear();
-      copy_all();
-      return *this;
-    }
-  }
   //OVERVIEW: a doubly-linked, double-ended list with Iterator interface
 public:
 
@@ -73,6 +56,24 @@ public:
   // and overloaded assignment operator, if appropriate. If these operations
   // will work correctly without defining these, you can omit them. A user
   // of the class must be able to create, copy, assign, and destroy Lists
+
+  List() : first(nullptr), last(nullptr) {}  // default constructor 
+    List (const List<T> &other) : List(){ //copy constructor
+     copy_all(other);
+   }
+  ~List() {      // destructor
+    clear();
+  }
+  List &operator==(const List<T> & that){ //overload assignment operator
+    if(this == &that){
+      return *this;
+    }
+    else{
+      clear();
+      copy_all(that);
+      return *this;
+    }
+  }
 
 private:
   int sizeOf;
@@ -256,9 +257,9 @@ void List<T>::clear() {
 template <typename T>
 void List<T>::copy_all(const List<T> &other) {
   assert(empty());
-  for (Iterator i = other.begin(); i < other.end(); ++i) {
-    push_back(*i);
-  }
+  // for (Iterator i = other.begin(); i < other.end(); ++i) {
+  //   push_back(*i);
+  // }
 }
 
 template <typename T>
@@ -274,10 +275,18 @@ typename List<T>::Iterator List<T>::end() const{
 template <typename T>
 void List<T>::erase(Iterator i){
   Node *currentNode = i.node_ptr;
-  Node *prevNode = i--.node_ptr;
-  Node* nextNode = i++.node_ptr;
-  prevNode->next = currentNode->next;
-  nextNode->prev = currentNode->prev;
+  Node *prevNode = i.node_ptr->prev;
+  Node* nextNode = i.node_ptr->next;
+  // if (currentNode == begin()){
+  //   pop_front();
+  // }
+  // else if(currentNode->next == nullptr){
+  //   pop_back();
+  // }
+  // else{
+    prevNode->next = currentNode->next;
+    nextNode->prev = currentNode->prev;
+ // }
 
 }
 
@@ -285,15 +294,27 @@ void List<T>::erase(Iterator i){
   //EFFECTS: inserts datum before the element at the specified position.
 template <typename T>
 void List<T>::insert(Iterator i, const T &datum){
-  Node *n = new Node{i, i--, datum};
+  //Node *n = i.node_ptr;
+  //Node *n = new Node{i, i--, datum};
+  // if (n==begin()){
+  //   push_front(datum);
+  // }
+  // else if(n->next == nullptr){
+  //   push_back(datum);
+  // }
   //Node n;
   // n->datum = datum;
   // n->next = &i; //address of node at i
-  Node *current = i.node_ptr; //sets previous pointer of current node to inserted node
-  current->prev = &n;
-  i--;
-  Node *prev = i.node_ptr;
-  prev->next = &n; //previous node's next points to inserted nodes address
+  //else{
+    Node *current = i.node_ptr; //sets previous pointer of current node to inserted node
+    Node *previ = i.node_ptr->next;
+    current->next->prev = previ;
+    previ->next = current->prev;
+    // current->prev = &n;
+    // i--;
+    // Node *prev = i.node_ptr;
+    // prev->next = &n; //previous node's next points to inserted nodes address
+  //}
 
 }
 
