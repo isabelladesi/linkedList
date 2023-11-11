@@ -13,11 +13,23 @@
 
 template <typename T>
 class List {
-  //List() : sizeOf(0), first(nullptr), last(nullptr) {}  // default constructor? 
+  // List() : first(nullptr), last(nullptr), ListNum(0) {}  // default constructor 
   // ~List() {      // destructor
-  //       clear();
-  //   }
-  //List();     //default constgructor?
+  //   clear();
+  // }
+  // List (const List<T> &other) : List(){ //copy constructor
+  //   copy_all(other);
+  // }
+  List &operator==(const List<T> &rhs){ //overload assignment operator
+    if(this == &rhs){
+      return *this;
+    }
+    else{
+      clear();
+      copy_all();
+      return *this;
+    }
+  }
   //OVERVIEW: a doubly-linked, double-ended list with Iterator interface
 public:
 
@@ -251,27 +263,38 @@ void List<T>::copy_all(const List<T> &other) {
 
 template <typename T>
 typename List<T>::Iterator List<T>::end() const{
-  Iterator iterator(nullptr); //last?
-  return iterator;
+  // Iterator iterator(nullptr); //last?
+  // return iterator;
+  return Iterator();
 }
 
+//REQUIRES: i is a valid, dereferenceable iterator associated with this list
+  //MODIFIES: may invalidate other list iterators
+  //EFFECTS: Removes a single element from the list container
 template <typename T>
 void List<T>::erase(Iterator i){
-  Iterator iterator(nullptr);
-  Iterator prev = begin();
- while (prev != end() && ++prev != i) {
-    ++prev;
-  }
-  if (prev != end()) {
-    //Node* temp = // current node
-    node_ptr = node_ptr(i);// current node
-   // delete temp;
-}
+  Node *currentNode = i.node_ptr;
+  Node *prevNode = i--.node_ptr;
+  Node* nextNode = i++.node_ptr;
+  prevNode->next = currentNode->next;
+  nextNode->prev = currentNode->prev;
+
 }
 
+//REQUIRES: i is a valid iterator associated with this list
+  //EFFECTS: inserts datum before the element at the specified position.
 template <typename T>
 void List<T>::insert(Iterator i, const T &datum){
-  Iterator iterator(nullptr);
+  Node *n = new Node{i, i--, datum};
+  //Node n;
+  // n->datum = datum;
+  // n->next = &i; //address of node at i
+  Node *current = i.node_ptr; //sets previous pointer of current node to inserted node
+  current->prev = &n;
+  i--;
+  Node *prev = i.node_ptr;
+  prev->next = &n; //previous node's next points to inserted nodes address
+
 }
 
 #endif // Do not remove this. Write all your code above this line.
