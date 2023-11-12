@@ -67,7 +67,7 @@ TEST (test_empty_list_pop_front) {
     ASSERT_TRUE(myList.empty());
 }
 
-// **this test doesnt work for some reason
+//**this test doesnt work for some reason
 // TEST (test_empty_list_pop_back) {
 //     List<int> myList; 
 //     myList.push_back(1); 
@@ -88,6 +88,87 @@ TEST (test_list_clear) {
     myList.clear();
     ASSERT_TRUE(myList.empty());
 }
+
+TEST(test_iterator_PlusMinusDeref) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+    l.push_back(4);
+    l.push_back(5);
+
+    List<int>::Iterator iterator = l.begin();
+    ++iterator;
+    ASSERT_EQUAL(*(iterator), 2);
+    --iterator;
+    ASSERT_EQUAL(*(iterator), 1);
+}
+
+
+TEST(test_iterator_equalNotEqualOp) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+    l.push_back(4);
+    l.push_back(5);
+
+    List<int>::Iterator iterator = l.begin();
+    List<int>::Iterator iteratorSame = l.begin();
+    assert(iterator == iteratorSame);
+    ++iteratorSame; 
+
+    assert(iterator != iteratorSame);
+
+}
+
+TEST(test_iterator_insert) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+    l.push_back(4);
+    l.push_back(5);
+
+    List<int>::Iterator iterator = l.begin();
+    ++iterator;
+    ++iterator;
+
+    l.insert(iterator, 10);
+    ASSERT_EQUAL(*(++(++l.begin())), 10);
+}
+
+TEST(test_iterator_erase) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3); //getting erased
+    l.push_back(4);
+    l.push_back(5);
+
+    List<int>::Iterator iterator = l.begin();
+    ++iterator;
+    ++iterator;
+
+    l.erase(iterator);
+    ASSERT_EQUAL(*(++(++l.begin())), 4);
+}
+
+TEST(test_iterator_InsertAndEnd) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3); //getting erased
+
+
+    List<int>::Iterator iterator = l.end();
+    l.insert(iterator, 10);
+
+
+    //assert(*iterator == null_ptr);
+    ASSERT_EQUAL(*++(++(++l.begin())), 10);
+}
+
 
 
 TEST_MAIN()
