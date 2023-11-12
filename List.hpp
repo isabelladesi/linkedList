@@ -64,7 +64,7 @@ public:
   ~List() {      // destructor
     clear();
   }
-  List &operator==(const List<T> & that){ //overload assignment operator
+  List &operator=(const List<T> & that){ //overload assignment operator
     if(this == &that){
       return *this;
     }

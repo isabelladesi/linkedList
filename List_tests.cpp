@@ -277,7 +277,6 @@ TEST(test_iterator_InsertAndEnd) {
     l.insert(iterator, 10);
 
 
-    //assert(*iterator == null_ptr);
     ASSERT_EQUAL(*++(++(++l.begin())), 10);
 }
 
@@ -291,24 +290,92 @@ TEST(test_iterator_erase_oneElementList) {
     l.erase(iterator);
 
 
-    //assert(*iterator == null_ptr);
     ASSERT_TRUE(l.empty());
 }
 
-//not done yet
-// TEST(test_iterator_insert_lastElement) {
-//     List<int> l;
-//     l.push_back(1);
+TEST(test_iterator_insert_lastElement) {
+    List<int> l;
+    l.push_back(1);
     
 
 
-//     List<int>::Iterator iterator = l.begin();
-//     l.insert(iterator, 10);
+    List<int>::Iterator iterator = l.begin();
+    l.insert(iterator, 10);
 
 
-//     //assert(*iterator == null_ptr);
-//      ASSERT_EQUAL(*(l.begin()), 10);
-// }
+     ASSERT_EQUAL(*(l.begin()), 10);
+}
+
+TEST(test_copy) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    List<int> l_copied(l);
+  
+    List<int>::Iterator l_iterator = l.end();
+    List<int>::Iterator l_copied_iterator = l_copied.begin();
+
+    while (l_copied_iterator != l_copied.end()){
+        for (l_iterator=l.begin(); l_iterator != l.end(); ++l_iterator) {
+            ASSERT_EQUAL(*(l_iterator), *(l_copied_iterator));
+            ++l_copied_iterator;
+        }
+    }
+}
+
+TEST(test_list_operator_equalequal_diffLists) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    List<int> l2;
+    l2.push_back(4);
+    l2.push_back(5);
+    l2.push_back(6);
+
+    l = l2;
+
+    List<int>::Iterator l_iterator = l.end();
+    List<int>::Iterator l2_iterator = l2.begin();
+
+    while (l2_iterator != l2.end()){
+        for (l_iterator=l.begin(); l_iterator != l.end(); ++l_iterator) {
+            ASSERT_EQUAL(*(l_iterator), *(l2_iterator));
+            ++l2_iterator;
+        }
+    }
+
+}
+
+TEST(test_list_operator_equalequal_equalLists) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    List<int> l2;
+    l2.push_back(1);
+    l2.push_back(2);
+    l2.push_back(3);
+
+    l = l2;
+
+    List<int>::Iterator l_iterator = l.end();
+    List<int>::Iterator l2_iterator = l2.begin();
+
+    while (l2_iterator != l2.end()){
+        for (l_iterator=l.begin(); l_iterator != l.end(); ++l_iterator) {
+            ASSERT_EQUAL(*(l_iterator), *(l2_iterator));
+            ++l2_iterator;
+        }
+    }
+
+}
+
+
 
 
 TEST_MAIN()
