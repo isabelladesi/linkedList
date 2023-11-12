@@ -68,17 +68,27 @@ TEST (test_empty_list_pop_front) {
 }
 
 //**this test doesnt work for some reason
-// TEST (test_empty_list_pop_back) {
-//     List<int> myList; 
-//     myList.push_back(1); 
-//     myList.push_back(2); 
-//     myList.push_back(3); 
-//     int size = myList.size();
-//     for(int i = 0; i < size; i++){
-//         myList.pop_back();
-//     }
-//     ASSERT_TRUE(myList.empty());
-// }
+TEST (test_empty_list_pop_back) {
+    List<int> myList; 
+    myList.push_back(1); 
+    myList.push_back(2); 
+    myList.push_back(3); 
+    int size = myList.size();
+    for(int i = 0; i < size; i++){
+        myList.pop_back();
+    }
+    ASSERT_TRUE(myList.empty());
+}
+TEST (test_1ELEM_list_pop_back) {
+    List<int> myList; 
+    myList.push_back(1); 
+    // int size = myList.size();
+    // for(int i = 0; i < size; i++){
+    //     myList.pop_back();
+    // }
+    myList.pop_back();
+    ASSERT_TRUE(myList.empty());
+}
 
 TEST (test_list_clear) {
     List<int> myList; 
