@@ -228,11 +228,13 @@ void List<T>::push_back(const T &datum) {
 
 template <typename T>
 void List<T>::pop_front() {
-  assert(!empty());
+  while (!empty()){
+  //assert(!empty());
   Node *new_first = first->next;  // temporary keeps track of new first
   delete first;
   first = new_first;
   --sizeOf;
+  }
 }
 
 template <typename T>
@@ -247,7 +249,7 @@ void List<T>::pop_back() {
 
 template <typename T>
 void List<T>::clear() {
-  assert(!empty());
+  //assert(!empty()); //while {!empty()}
   for (int i = 0; i < size(); ++i) {
     pop_front();
   }
@@ -257,9 +259,9 @@ void List<T>::clear() {
 template <typename T>
 void List<T>::copy_all(const List<T> &other) {
   assert(empty());
-  // for (Iterator i = other.begin(); i < other.end(); ++i) {
-  //   push_back(*i);
-  // }
+  for (Iterator i = other.begin(); i != other.end(); ++i) {
+    push_back(*i);
+  }
 }
 
 template <typename T>
