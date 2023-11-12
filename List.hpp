@@ -252,6 +252,9 @@ void List<T>::pop_back() {
   delete last;
   last = new_last;
   --sizeOf;
+  if (sizeOf == 0){
+    first = last;
+  }
 }
 
 template <typename T>
