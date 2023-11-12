@@ -247,7 +247,6 @@ void List<T>::pop_back() {
 
 template <typename T>
 void List<T>::clear() {
-  assert(!empty());
   for (int i = 0; i < size(); ++i) {
     pop_front();
   }
@@ -257,7 +256,12 @@ void List<T>::clear() {
 template <typename T>
 void List<T>::copy_all(const List<T> &other) {
   assert(empty());
-  // for (Iterator i = other.begin(); i < other.end(); ++i) {
+  Node *current = other.first;
+  while (current){
+    push_back(current -> datum);
+    current = current -> next;
+  }
+  // for (Iterator i = other.begin(); i < other.size(); ++i) {
   //   push_back(*i);
   // }
 }
