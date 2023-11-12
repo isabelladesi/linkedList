@@ -228,11 +228,13 @@ void List<T>::push_back(const T &datum) {
 
 template <typename T>
 void List<T>::pop_front() {
-  assert(!empty());
+  while (!empty()){
+  //assert(!empty());
   Node *new_first = first->next;  // temporary keeps track of new first
   delete first;
   first = new_first;
   --sizeOf;
+  }
 }
 
 template <typename T>
@@ -247,6 +249,7 @@ void List<T>::pop_back() {
 
 template <typename T>
 void List<T>::clear() {
+  //assert(!empty()); //while {!empty()}
   for (int i = 0; i < size(); ++i) {
     pop_front();
   }
@@ -256,14 +259,9 @@ void List<T>::clear() {
 template <typename T>
 void List<T>::copy_all(const List<T> &other) {
   assert(empty());
-  Node *current = other.first;
-  while (current){
-    push_back(current -> datum);
-    current = current -> next;
+  for (Iterator i = other.begin(); i != other.end(); ++i) {
+    push_back(*i);
   }
-  // for (Iterator i = other.begin(); i < other.size(); ++i) {
-  //   push_back(*i);
-  // }
 }
 
 template <typename T>
@@ -281,16 +279,17 @@ void List<T>::erase(Iterator i){
   Node *currentNode = i.node_ptr;
   Node *prevNode = i.node_ptr->prev;
   Node* nextNode = i.node_ptr->next;
-  // if (currentNode == begin()){
-  //   pop_front();
-  // }
-  // else if(currentNode->next == nullptr){
-  //   pop_back();
-  // }
-  // else{
+  //if (*currentNode == begin()){ //I.NODEPTR PREV == NULL PTR // BEGIN()
+  if (i.node_ptr->prev == nullptr){ // i=begin()
+    pop_front();
+  }
+  else if(currentNode->next == nullptr){//i.node_ptr ->next //i == end()
+    pop_back();
+  }
+  else{
     prevNode->next = currentNode->next;
     nextNode->prev = currentNode->prev;
- // }
+  }
 
 }
 
@@ -298,27 +297,29 @@ void List<T>::erase(Iterator i){
   //EFFECTS: inserts datum before the element at the specified position.
 template <typename T>
 void List<T>::insert(Iterator i, const T &datum){
-  //Node *n = i.node_ptr;
-  //Node *n = new Node{i, i--, datum};
-  // if (n==begin()){
-  //   push_front(datum);
-  // }
-  // else if(n->next == nullptr){
-  //   push_back(datum);
-  // }
-  //Node n;
-  // n->datum = datum;
-  // n->next = &i; //address of node at i
-  //else{
+  // Node *n = i.node_ptr;
+  // Node *n = new Node{i, i--, datum};
+  if (i==begin()){
+    push_front(datum);
+  }
+  else if(i == end()){
+    push_back(datum);
+  }
+  else{
+    Node *n = new Node;
+    n->datum = datum;
+    n->next = i.node_ptr; //address of node at i
     Node *current = i.node_ptr; //sets previous pointer of current node to inserted node
-    Node *previ = i.node_ptr->next;
-    current->next->prev = previ;
-    previ->next = current->prev;
+    Node *previ = i.node_ptr->prev;
+    current->prev = n;
+    previ->next = n;
+    // current->next->prev = previ;
+    // previ->next = current->prev;
     // current->prev = &n;
     // i--;
     // Node *prev = i.node_ptr;
     // prev->next = &n; //previous node's next points to inserted nodes address
-  //}
+  }
 
 }
 
