@@ -274,7 +274,7 @@ template <typename T>
 typename List<T>::Iterator List<T>::end() const{
   // Iterator iterator(nullptr); //last?
   // return iterator;
-  return Iterator();
+  return Iterator(nullptr);
 }
 
 //REQUIRES: i is a valid, dereferenceable iterator associated with this list
