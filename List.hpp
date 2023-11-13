@@ -76,7 +76,7 @@ public:
   }
 
 private:
-  int sizeOf;
+  int sizeOf = 0;
   //a private type
   struct Node {
     Node *next;
@@ -211,7 +211,14 @@ T &  List<T>::back() {
 
 template <typename T>
 void List<T>::push_front(const T &datum) {
-  first = new Node{first, nullptr, datum};
+  Node *new_node = new Node{first, nullptr, datum};
+  ++sizeOf;
+   if(empty()){ 
+      last = new_node;
+    } else {
+      first->prev = new_node;
+    }
+  first = new_node;
   ++sizeOf;
 }
 
