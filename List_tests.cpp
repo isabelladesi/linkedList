@@ -15,15 +15,13 @@ TEST(test_stub) {
     ASSERT_TRUE(list1.empty());
 }
 
-TEST (test_empty_list) {
+TEST (test_list_empty) {
     List<int> myList;
     ASSERT_TRUE(myList.empty());
-}
 
-TEST (test_not_empty_list) {
-    List<int> myList; 
-    myList.push_back(1);
-    ASSERT_FALSE(myList.empty())
+    List<int> myList2; 
+    myList2.push_back(1);
+    ASSERT_FALSE(myList2.empty())
 }
 
 TEST (test_list_size) {
@@ -37,25 +35,41 @@ TEST (test_list_size) {
     ASSERT_EQUAL(size2, 0);
 }
 
-TEST (test_empty_list_push_front) {
+TEST (test_list_push_front) {
     List<int> myList; 
     myList.push_front(1); 
     myList.push_front(2); 
-    myList.push_front(3); 
+    myList.push_front(3);
+    int size = myList.size(); 
     ASSERT_EQUAL(myList.front(), 3);
     ASSERT_EQUAL(myList.back(), 1);
+    ASSERT_EQUAL(size, 3);
+
+    List<int> myList2; 
+    myList2.push_front(1); 
+    int size2 = myList2.size();
+    ASSERT_EQUAL(myList2.front(), 1);
+    ASSERT_EQUAL(myList2.back(), 1);
+    ASSERT_EQUAL(size2, 1);
 }
 
-TEST (test_empty_list_push_back) {
+TEST (test_list_push_back) {
     List<int> myList; 
     myList.push_back(1); 
     myList.push_back(2); 
     myList.push_back(3); 
     ASSERT_EQUAL(myList.front(), 1);
     ASSERT_EQUAL(myList.back(), 3);
+
+    List<int> myList2; 
+    myList2.push_back(1); 
+    int size2 = myList2.size();
+    ASSERT_EQUAL(myList2.front(), 1);
+    ASSERT_EQUAL(myList2.back(), 1);
+    ASSERT_EQUAL(size2, 1);
 }
 
-TEST (test_empty_list_pop_front) {
+TEST (test_list_pop_front) {
     List<int> myList; 
     myList.push_back(1); 
     myList.push_back(2); 
@@ -65,10 +79,34 @@ TEST (test_empty_list_pop_front) {
         myList.pop_front();
     }
     ASSERT_TRUE(myList.empty());
+
+    List<int> myList2; 
+    myList2.push_back(1); 
+    myList2.push_back(2); 
+    myList2.push_back(3); 
+    myList2.pop_front();
+    int size2 = myList2.size();
+    ASSERT_EQUAL(myList2.front(), 2);
+    ASSERT_EQUAL(myList2.back(), 3);
+    ASSERT_EQUAL(size2, 2);
+
+    List<int> myList3; 
+    myList3.push_back(3); 
+    myList3.push_back(2); 
+    myList3.pop_front();
+    int size3 = myList3.size();
+    ASSERT_EQUAL(myList3.front(), 2);
+    ASSERT_EQUAL(myList3.back(), 2);
+    ASSERT_EQUAL(size3, 1);
+
+    List<int> myList4; 
+    myList4.push_back(1); 
+    myList4.pop_front();
+    ASSERT_TRUE(myList4.empty());
 }
 
 //**this test doesnt work for some reason
-TEST (test_empty_list_pop_back) {
+TEST (test_pop_back) {
     List<int> myList; 
     myList.push_back(1); 
     myList.push_back(2); 
@@ -78,16 +116,30 @@ TEST (test_empty_list_pop_back) {
         myList.pop_back();
     }
     ASSERT_TRUE(myList.empty());
-}
-TEST (test_1ELEM_list_pop_back) {
-    List<int> myList; 
-    myList.push_back(1); 
-    // int size = myList.size();
-    // for(int i = 0; i < size; i++){
-    //     myList.pop_back();
-    // }
-    myList.pop_back();
-    ASSERT_TRUE(myList.empty());
+
+    List<int> myList2; 
+    myList2.push_back(1); 
+    myList2.push_back(2); 
+    myList2.push_back(3); 
+    myList2.pop_back();
+    int size2 = myList2.size();
+    ASSERT_EQUAL(myList2.front(), 1);
+    ASSERT_EQUAL(myList2.back(), 2);
+    ASSERT_EQUAL(size2, 2);
+
+    List<int> myList3; 
+    myList3.push_back(3); 
+    myList3.push_back(2); 
+    myList3.pop_back();
+    int size3 = myList3.size();
+    ASSERT_EQUAL(myList3.front(), 3);
+    ASSERT_EQUAL(myList3.back(), 3);
+    ASSERT_EQUAL(size3, 1);
+
+    List<int> myList4; 
+    myList4.push_back(1); 
+    myList4.pop_back();
+    ASSERT_TRUE(myList4.empty());
 }
 
 TEST (test_list_clear) {
@@ -96,7 +148,24 @@ TEST (test_list_clear) {
     myList.push_back(2); 
     myList.push_back(3); 
     myList.clear();
+    int size = myList.size();
     ASSERT_TRUE(myList.empty());
+    ASSERT_EQUAL(size, 0);
+
+    List<int> myList2; 
+    myList2.clear();
+    int size2 = myList2.size();
+    ASSERT_TRUE(myList2.empty());
+    ASSERT_EQUAL(size2, 0);
+}
+
+TEST (test_front_back) {
+    List<int> myList; 
+    myList.push_back(1); 
+    myList.push_front(2); 
+    myList.push_back(3); 
+    ASSERT_EQUAL(myList.front(), 2);
+    ASSERT_EQUAL(myList.back(), 3);
 }
 
 TEST(test_iterator_PlusMinusDeref) {
