@@ -3,9 +3,17 @@
 
 # Compiler
 CXX ?= g++
+CXXFLAGS ?= --std=c++17 -Wall -Werror -pedantic -g
 
-# Compiler flags
-CXXFLAGS ?= --std=c++17 -Wall -Werror -pedantic -g -Wno-sign-compare -Wno-comment
+# Add sanitizer flags for identifying undefined behavior.  The flags are
+# different on macOS (AKA Darwin) and Windows/WSL/Linux.
+UNAME := $(shell uname -s)
+ifeq "$(UNAME)" "Darwin"
+	CXXFLAGS += -fsanitize=address -fsanitize=undefined
+else
+	CXXFLAGS += -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG
+endif
+
 
 # Run a regression test
 test: List_compile_check.exe List_public_test.exe List_tests.exe
