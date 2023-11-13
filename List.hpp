@@ -212,7 +212,6 @@ T &  List<T>::back() {
 template <typename T>
 void List<T>::push_front(const T &datum) {
   Node *new_node = new Node{first, nullptr, datum};
-  ++sizeOf;
    if(empty()){ 
       last = new_node;
     } else {
@@ -235,14 +234,12 @@ void List<T>::push_back(const T &datum) {
 
 template <typename T>
 void List<T>::pop_front() {
-  while (!empty()){
-  //assert(!empty());
+  assert(!empty());
   Node *new_first = first->next;  // temporary keeps track of new first
   delete first;
   first = new_first;
   --sizeOf;
   }
-}
 
 template <typename T>
 void List<T>::pop_back() {
@@ -298,8 +295,9 @@ void List<T>::erase(Iterator i){
   else{
     prevNode->next = currentNode->next;
     nextNode->prev = currentNode->prev;
+    delete currentNode;
+    --sizeOf;
   }
-
 }
 
 //REQUIRES: i is a valid iterator associated with this list
@@ -322,14 +320,8 @@ void List<T>::insert(Iterator i, const T &datum){
     Node *previ = i.node_ptr->prev;
     current->prev = n;
     previ->next = n;
-    // current->next->prev = previ;
-    // previ->next = current->prev;
-    // current->prev = &n;
-    // i--;
-    // Node *prev = i.node_ptr;
-    // prev->next = &n; //previous node's next points to inserted nodes address
+    ++sizeOf;
   }
-
 }
 
 #endif // Do not remove this. Write all your code above this line.
