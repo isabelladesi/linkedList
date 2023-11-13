@@ -179,6 +179,34 @@ TEST(test_iterator_InsertAndEnd) {
     ASSERT_EQUAL(*++(++(++l.begin())), 10);
 }
 
+TEST(test_iterator_erase_oneElementList) {
+    List<int> l;
+    l.push_back(1);
+    
+
+
+    List<int>::Iterator iterator = l.begin();
+    l.erase(iterator);
+
+
+    //assert(*iterator == null_ptr);
+    ASSERT_TRUE(l.empty());
+}
+
+//not done yet
+// TEST(test_iterator_insert_lastElement) {
+//     List<int> l;
+//     l.push_back(1);
+    
+
+
+//     List<int>::Iterator iterator = l.begin();
+//     l.insert(iterator, 10);
+
+
+//     //assert(*iterator == null_ptr);
+//      ASSERT_EQUAL(*(l.begin()), 10);
+// }
 
 
 TEST_MAIN()
