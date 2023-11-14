@@ -68,7 +68,7 @@ TEST (test_list_size) {
     myList3.pop_front();
     myList3.pop_back();
     myList3.pop_front();
-    ASSERT_EQUAL(myList.size(), 0);
+    ASSERT_EQUAL(myList3.size(), 0);
 }
 
 TEST (test_list_push_front) {
@@ -243,7 +243,7 @@ TEST (test_front_back) {
     List<int> myList5;
     myList5.push_back(10);
     ASSERT_EQUAL(myList5.front(), 10);
-    ASSERT_EQUAL(myList5.size(), 10);
+    ASSERT_EQUAL(myList5.size(), 1);
 
     List<int> myList6;
     myList6.push_back(10);
