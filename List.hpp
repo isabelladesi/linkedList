@@ -189,7 +189,7 @@ public:
 
 template <typename T>
 bool List<T>::empty() const {
-  return first == nullptr; //return size == 0; or just return !first;
+  return first == nullptr; 
 }
 
 template <typename T>
@@ -239,7 +239,6 @@ void List<T>::pop_front() {
   delete first;
   first = new_first;
   --sizeOf;
-   //double check if this is right
   if (sizeOf == 0){
     first = nullptr;
     last = nullptr;
@@ -252,7 +251,6 @@ void List<T>::pop_front() {
 template <typename T>
 void List<T>::pop_back() {
   assert(!empty());
-  // int size = size();
   Node *new_last = last->prev;  // temporary keeps track of new first
   delete last;
   last = new_last;
@@ -284,8 +282,7 @@ void List<T>::copy_all(const List<T> &other) {
 
 template <typename T>
 typename List<T>::Iterator List<T>::end() const{
-  // Iterator iterator(nullptr); //last?
-  // return iterator;
+
   return Iterator(nullptr);
 }
 
@@ -297,11 +294,10 @@ void List<T>::erase(Iterator i){
   Node *currentNode = i.node_ptr;
   Node *prevNode = i.node_ptr->prev;
   Node* nextNode = i.node_ptr->next;
-  //if (*currentNode == begin()){ //I.NODEPTR PREV == NULL PTR // BEGIN()
-  if (i.node_ptr->prev == nullptr){ // i=begin()
+  if (i.node_ptr->prev == nullptr){ 
     pop_front();
   }
-  else if(currentNode->next == nullptr){//i.node_ptr ->next //i == end()
+  else if(currentNode->next == nullptr){
     pop_back();
   }
   else{
@@ -316,8 +312,7 @@ void List<T>::erase(Iterator i){
   //EFFECTS: inserts datum before the element at the specified position.
 template <typename T>
 void List<T>::insert(Iterator i, const T &datum){
-  // Node *n = i.node_ptr;
-  // Node *n = new Node{i, i--, datum};
+
   if (i==begin()){
     push_front(datum);
   }
@@ -327,8 +322,8 @@ void List<T>::insert(Iterator i, const T &datum){
   else{
     Node *n = new Node;
     n->datum = datum;
-    n->next = i.node_ptr; //address of node at i
-    Node *current = i.node_ptr; //sets previous pointer of current node to inserted node
+    n->next = i.node_ptr; 
+    Node *current = i.node_ptr;
     Node *previ = i.node_ptr->prev;
     current->prev = n;
     previ->next = n;

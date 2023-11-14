@@ -5,7 +5,7 @@ using namespace std;
 
 // Add your test cases here
 
-TEST(test_stub) {
+TEST(test_clear) {
     // Add test code here
     List <int> list1;
     list1.push_back(3);
@@ -320,12 +320,28 @@ TEST(test_iterator_InsertAndEnd) {
     List<int> l;
     l.push_back(1);
     l.push_back(2);
-    l.push_back(3); //getting erased
+    l.push_back(3); 
 
     List<int>::Iterator iterator = l.end();
     l.insert(iterator, 10);
 
     ASSERT_EQUAL(*++(++(++l.begin())), 10);
+}
+
+TEST(test_iterator_InsertEndBack) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3); 
+
+    List<int>::Iterator iterator = l.begin();
+    ++iterator;
+    l.insert(iterator, 10);
+
+    ASSERT_EQUAL(*(++l.begin()), 10);
+    ASSERT_EQUAL(l.back(), 3);
+    ASSERT_EQUAL(l.front(), 1);
+
 }
 
 TEST(test_iterator_erase_oneElementList) {
@@ -390,6 +406,40 @@ TEST(test_list_operator_equalequal_diffLists) {
     }
 }
 
+TEST(test_list_operator_equal_diff) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    List<int> l2;
+    l2.push_back(4);
+    l2.push_back(5);
+    l2.push_back(6);
+    int sizel2 = 3;
+
+
+    ASSERT_EQUAL(l.size(), l2.size());
+
+    l.push_back(4);
+    int sizel = 4;
+    ASSERT_NOT_EQUAL(l.size(), l2.size());
+    ASSERT_EQUAL(l.size(), sizel);
+    ASSERT_EQUAL(l2.size(), sizel2);
+
+    l = l2;
+
+    List<int>::Iterator l_iterator = l.end();
+    List<int>::Iterator l2_iterator = l2.begin();
+
+    while (l2_iterator != l2.end()){
+        for (l_iterator=l.begin(); l_iterator != l.end(); ++l_iterator) {
+            ASSERT_EQUAL(*(l_iterator), *(l2_iterator));
+            ++l2_iterator;
+        }
+    }
+}
+
 TEST(test_list_operator_equalequal_equalLists) {
     List<int> l;
     l.push_back(1);
@@ -415,22 +465,22 @@ TEST(test_list_operator_equalequal_equalLists) {
 }
 
 TEST(test_iterator_insert_beginning) {
-    List<int> myList;
-    myList.push_back(11);
-    myList.push_back(10);
+    List<int> l;
+    l.push_back(11);
+    l.push_back(10);
     
-    List<int>::Iterator position = myList.begin();
+    List<int>::Iterator iterator = l.begin();
 
-    myList.insert(position, 2);
+    l.insert(iterator, 2);
 
-    ASSERT_EQUAL(myList.size(), 3);
-    ASSERT_EQUAL(myList.front(), 2);
-    ASSERT_EQUAL(*(++myList.begin()), 11);
-    ASSERT_EQUAL(myList.back(), 10);
+    ASSERT_EQUAL(l.size(), 3);
+    ASSERT_EQUAL(l.front(), 2);
+    ASSERT_EQUAL(*(++l.begin()), 11);
+    ASSERT_EQUAL(l.back(), 10);
 
-    myList.erase(position);
-    ASSERT_EQUAL(myList.size(), 2);
-    ASSERT_EQUAL(myList.front(), 2);
+    l.erase(iterator);
+    ASSERT_EQUAL(l.size(), 2);
+    ASSERT_EQUAL(l.front(), 2);
 }
 
 TEST(test_iterator_loop) {
