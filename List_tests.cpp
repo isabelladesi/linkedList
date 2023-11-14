@@ -231,7 +231,6 @@ TEST(test_iterator_equalNotEqualOp) {
     ++iteratorSame; 
 
     assert(iterator != iteratorSame);
-
 }
 
 TEST(test_iterator_insert) {
@@ -272,10 +271,8 @@ TEST(test_iterator_InsertAndEnd) {
     l.push_back(2);
     l.push_back(3); //getting erased
 
-
     List<int>::Iterator iterator = l.end();
     l.insert(iterator, 10);
-
 
     ASSERT_EQUAL(*++(++(++l.begin())), 10);
 }
@@ -283,12 +280,9 @@ TEST(test_iterator_InsertAndEnd) {
 TEST(test_iterator_erase_oneElementList) {
     List<int> l;
     l.push_back(1);
-    
-
 
     List<int>::Iterator iterator = l.begin();
     l.erase(iterator);
-
 
     ASSERT_TRUE(l.empty());
 }
@@ -296,14 +290,10 @@ TEST(test_iterator_erase_oneElementList) {
 TEST(test_iterator_insert_lastElement) {
     List<int> l;
     l.push_back(1);
-    
-
 
     List<int>::Iterator iterator = l.begin();
     l.insert(iterator, 10);
-
-
-     ASSERT_EQUAL(*(l.begin()), 10);
+    ASSERT_EQUAL(*(l.begin()), 10);
 }
 
 TEST(test_copy) {
@@ -347,7 +337,6 @@ TEST(test_list_operator_equalequal_diffLists) {
             ++l2_iterator;
         }
     }
-
 }
 
 TEST(test_list_operator_equalequal_equalLists) {
@@ -372,7 +361,39 @@ TEST(test_list_operator_equalequal_equalLists) {
             ++l2_iterator;
         }
     }
+}
 
+TEST(test_iterator_insert_beginning) {
+    List<int> myList;
+    myList.push_back(11);
+    myList.push_back(10);
+    
+    List<int>::Iterator position = myList.begin();
+
+    myList.insert(position, 2);
+
+    ASSERT_EQUAL(myList.size(), 3);
+    ASSERT_EQUAL(myList.front(), 2);
+    ASSERT_EQUAL(*(++myList.begin()), 11);
+    ASSERT_EQUAL(myList.back(), 10);
+
+    myList.erase(position);
+    ASSERT_EQUAL(myList.size(), 2);
+    ASSERT_EQUAL(myList.front(), 2);
+}
+
+TEST(test_iterator_loop) {
+    List<int> myList;
+    myList.push_back(4);
+    myList.push_back(5);
+    myList.push_back(6);
+
+    int expectedval = 4;
+    for (List<int>::Iterator iterator = myList.begin(); \
+    iterator != myList.end(); ++iterator) {
+        ASSERT_EQUAL(*iterator, expectedval);
+        ++expectedval;
+    }
 }
 
 
