@@ -32,10 +32,12 @@ TEST(test_diff_types) {
 TEST (test_list_empty) {
     List<int> myList;
     ASSERT_TRUE(myList.empty());
+    ASSERT_TRUE(myList.begin() == myList.end());
 
     List<int> myList2; 
     myList2.push_back(1);
-    ASSERT_FALSE(myList2.empty())
+    ASSERT_FALSE(myList2.empty());
+    ASSERT_TRUE(myList.begin() == myList.end());
 }
 
 TEST (test_list_size) {
@@ -44,9 +46,29 @@ TEST (test_list_size) {
     int size = myList.size();
     ASSERT_EQUAL(size, 1);
 
+    List<int> myList1; 
+    myList1.push_back(1);
+    myList1.push_front(2);
+    myList1.push_back(1);
+    myList1.push_front(1);
+    myList1.push_back(5);
+    myList1.push_front(1); 
+    int size1 = myList1.size();
+    ASSERT_EQUAL(size1, 6);
+
     List<int> myList2; 
     int size2 = myList2.size();
     ASSERT_EQUAL(size2, 0);
+
+    List<int> myList3;
+    myList3.push_back(5);
+    myList3.push_back(20);
+    myList3.push_back(9);
+
+    myList3.pop_front();
+    myList3.pop_back();
+    myList3.pop_front();
+    ASSERT_EQUAL(myList.size(), 0);
 }
 
 TEST (test_list_push_front) {
@@ -65,6 +87,18 @@ TEST (test_list_push_front) {
     ASSERT_EQUAL(myList2.front(), 1);
     ASSERT_EQUAL(myList2.back(), 1);
     ASSERT_EQUAL(size2, 1);
+
+    List<int> myList7;
+    myList7.push_front(1);
+    myList7.push_front(2);
+    ASSERT_TRUE(myList7.front() == 2 && myList7.back() == 1);
+    ASSERT_EQUAL(myList7.size(), 2);
+    myList7.push_front(9);
+    ASSERT_EQUAL(myList7.front(), 9);
+    ASSERT_EQUAL(myList7.size(), 3);
+    myList7.push_back(11);
+    ASSERT_EQUAL(myList7.size(), 4);
+    ASSERT_EQUAL(myList7.back(), 11);
 }
 
 TEST (test_list_push_back) {
@@ -81,6 +115,12 @@ TEST (test_list_push_back) {
     ASSERT_EQUAL(myList2.front(), 1);
     ASSERT_EQUAL(myList2.back(), 1);
     ASSERT_EQUAL(size2, 1);
+
+    List<int> myList3;
+    myList3.push_back(9);
+    myList3.push_back(22);
+    ASSERT_TRUE(myList3.front() == 9 && myList3.back() == 22);
+    ASSERT_EQUAL(myList3.size(), 2);
 }
 
 TEST (test_list_pop_front) {
@@ -199,6 +239,17 @@ TEST (test_front_back) {
     myList4.back() = 0;
     ASSERT_EQUAL(myList2.front(), 0);
     ASSERT_EQUAL(myList2.back(), 0);
+
+    List<int> myList5;
+    myList5.push_back(10);
+    ASSERT_EQUAL(myList5.front(), 10);
+    ASSERT_EQUAL(myList5.size(), 10);
+
+    List<int> myList6;
+    myList6.push_back(10);
+    ASSERT_EQUAL(myList6.front(), 10);
+    myList6.front() = 9;
+    ASSERT_EQUAL(myList6.front(), 9);
 }
 
 TEST(test_iterator_PlusMinusDeref) {
