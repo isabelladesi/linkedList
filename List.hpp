@@ -239,7 +239,15 @@ void List<T>::pop_front() {
   delete first;
   first = new_first;
   --sizeOf;
+   //double check if this is right
+  if (sizeOf == 0){
+    first = nullptr;
+    last = nullptr;
   }
+  else{
+    first->prev = nullptr;
+  }
+}
 
 template <typename T>
 void List<T>::pop_back() {
@@ -250,7 +258,11 @@ void List<T>::pop_back() {
   last = new_last;
   --sizeOf;
   if (sizeOf == 0){
-    first = last;
+    first = nullptr;
+    last = nullptr;
+  }
+  else {
+    last->next = nullptr;
   }
 }
 

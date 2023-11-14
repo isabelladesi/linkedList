@@ -15,6 +15,20 @@ TEST(test_stub) {
     ASSERT_TRUE(list1.empty());
 }
 
+TEST(test_diff_types) {
+    // Add test code here
+    List <char> list1;
+    list1.push_back('A');
+    list1.push_back('B');
+    ASSERT_EQUAL(list1.front(), 'A');
+    ASSERT_EQUAL(list1.back(), 'B');
+
+    List <double> list2;
+    list2.push_back(2.1);
+    ASSERT_EQUAL(list2.front(), 2.1);
+    ASSERT_EQUAL(list2.back(), 2.1);
+}
+
 TEST (test_list_empty) {
     List<int> myList;
     ASSERT_TRUE(myList.empty());
@@ -105,7 +119,6 @@ TEST (test_list_pop_front) {
     ASSERT_TRUE(myList4.empty());
 }
 
-//**this test doesnt work for some reason
 TEST (test_pop_back) {
     List<int> myList; 
     myList.push_back(1); 
@@ -166,6 +179,26 @@ TEST (test_front_back) {
     myList.push_back(3); 
     ASSERT_EQUAL(myList.front(), 2);
     ASSERT_EQUAL(myList.back(), 3);
+
+    List<int> myList2; 
+    myList2.push_back(1); 
+    myList2.push_front(2); 
+    myList2.back() = 0;
+    myList2.front() = 0;
+    ASSERT_EQUAL(myList2.front(), 0);
+    ASSERT_EQUAL(myList2.back(), 0);
+
+    List<int> myList3; 
+    myList3.push_back(1); 
+    myList3.front() = 0;
+    ASSERT_EQUAL(myList2.front(), 0);
+    ASSERT_EQUAL(myList2.back(), 0);
+
+    List<int> myList4; 
+    myList4.push_back(1); 
+    myList4.back() = 0;
+    ASSERT_EQUAL(myList2.front(), 0);
+    ASSERT_EQUAL(myList2.back(), 0);
 }
 
 TEST(test_iterator_PlusMinusDeref) {
