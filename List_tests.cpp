@@ -328,7 +328,7 @@ TEST(test_iterator_InsertAndEnd) {
     ASSERT_EQUAL(*++(++(++l.begin())), 10);
 }
 
-TEST(test_iterator_InsertEndBack) {
+TEST(test_iterator_InsertBack) {
     List<int> l;
     l.push_back(1);
     l.push_back(2);
@@ -382,7 +382,50 @@ TEST(test_copy) {
     }
 }
 
-TEST(test_list_operator_equalequal_diffLists) {
+TEST(test_copy_insertTwiceAndCopy) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+    l.push_back(12);
+    ASSERT_EQUAL(l.size(), 4);
+    ASSERT_EQUAL(l.front(), 1);
+    ASSERT_EQUAL(l.back(), 12);
+
+    List<int>::Iterator iterator = l.begin();
+    ++iterator;
+
+    l.insert(iterator, 10);
+    ASSERT_EQUAL(*(++l.begin()), 10);
+    ASSERT_EQUAL(l.size(), 5);
+
+    l.insert(iterator, 20);
+    ASSERT_EQUAL(*++(++l.begin()), 20);
+    ASSERT_EQUAL(l.size(), 6);
+
+    List<int>::Iterator iterator2(iterator);
+    ASSERT_TRUE(iterator == iterator2);
+}
+
+TEST(test_copy_basictest) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    List<int> l_copied(l);
+  
+
+    ASSERT_EQUAL(l_copied.size(), l.size());
+    ASSERT_EQUAL(l_copied.front(), l.front());
+    ASSERT_EQUAL(l_copied.back(), l.back());
+    l.push_back(9);
+    ASSERT_NOT_EQUAL(l_copied.size(), l.size());
+    ASSERT_EQUAL(l_copied.front(), l.front());
+    ASSERT_NOT_EQUAL(l_copied.back(), l.back());
+}
+
+TEST(test_list_operator_equal_diffLists) {
     List<int> l;
     l.push_back(1);
     l.push_back(2);
@@ -404,6 +447,28 @@ TEST(test_list_operator_equalequal_diffLists) {
             ++l2_iterator;
         }
     }
+}
+
+    TEST(test_list_operator_equal_diffLists_BASIC) {
+    List<int> l;
+    l.push_back(1);
+    l.push_back(2);
+    l.push_back(3);
+
+    List<int> l2;
+    l2.push_back(4);
+    l2.push_back(5);
+    l2.push_back(6);
+
+    l = l2;
+
+    ASSERT_EQUAL(l.size(), l2.size());
+    ASSERT_EQUAL(l.front(), l2.front());
+    ASSERT_EQUAL(l.back(), l2.back());
+    l.push_front(9);
+    ASSERT_NOT_EQUAL(l.size(), l2.size());
+    ASSERT_NOT_EQUAL(l.front(), l2.front());
+    ASSERT_EQUAL(l.back(), l2.back());
 }
 
 TEST(test_list_operator_equal_diff) {
@@ -462,6 +527,30 @@ TEST(test_list_operator_equalequal_equalLists) {
             ++l2_iterator;
         }
     }
+}
+
+TEST(test_iterator_end2) {
+    List<int> l;
+    l.push_back(8);
+    l.push_back(9);
+    l.push_back(10);
+
+    List<int>::Iterator iterator = l.begin();
+    for (int x=0; x<3; ++x){
+        ++iterator;
+    }
+
+    ASSERT_EQUAL(iterator, l.end());
+}
+
+TEST(test_iterator_empty2){
+    List<int> l;
+    ASSERT_EQUAL(l.size(), 0);
+    ASSERT_TRUE(l.begin() == l.end());
+    ASSERT_TRUE(l.empty());
+    List<int>::Iterator iterator = l.begin();
+    ASSERT_TRUE(iterator == l.begin());
+    ASSERT_TRUE(iterator == l.end());
 }
 
 TEST(test_iterator_insert_beginning) {
