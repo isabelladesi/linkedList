@@ -406,6 +406,30 @@ TEST(test_iterator_empty){
 }
 
 
+TEST(test_iterator_end2) {
+    List<int> l;
+    l.push_back(8);
+    l.push_back(9);
+    l.push_back(10);
+
+    List<int>::Iterator iterator = l.begin();
+    for (int x=0; x<3; ++x){
+        ++iterator;
+    }
+
+    ASSERT_EQUAL(iterator, l.end());
+}
+
+TEST(test_iterator_empty2){
+    List<int> l;
+    ASSERT_EQUAL(l.size(), 0);
+    ASSERT_TRUE(l.begin() == l.end());
+    ASSERT_TRUE(l.empty());
+    List<int>::Iterator iterator = l.begin();
+    ASSERT_TRUE(iterator == l.begin());
+    ASSERT_TRUE(iterator == l.end());
+}
+
 TEST(test_iterator_insert_beginning) {
     List<int> myList;
     myList.push_back(1);
